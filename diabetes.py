@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv("C:/Users/anbas061/Downloads/diabetes.csv")
+df = pd.read_csv("E://King's//Data//Prescriptive Analytics//WEEK3Assignment Diabetes//diabetes.csv")
 
 
 print("First few rows of the dataframe")
@@ -20,7 +20,10 @@ print(df_cleaned.head())
 
 # Overall Stats
 print("Summary Statistics")
-print(df.describe())
+summary_statistics = df.describe()
+print(summary_statistics)
+excel_file_path = "E://King's//Data//Prescriptive Analytics//WEEK3Assignment Diabetes//summary_statistics.xlsx"
+summary_statistics.to_excel(excel_file_path, index=True)
 
 #Mean
 means = df.mean().round(4)
@@ -46,6 +49,8 @@ print(std_devs)
 correlation_matrix = df.corr().round(4)
 print("\nCorrelation Matrix")
 print(correlation_matrix)
+excel_file_path = "E://King's//Data//Prescriptive Analytics//WEEK3Assignment Diabetes//correlation.xlsx"
+correlation_matrix.to_excel(excel_file_path, index=True)
 
 #Distribution of Outcome
 sns.countplot(x='Outcome', data=df)
