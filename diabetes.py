@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv("E://King's//Data//Prescriptive Analytics//WEEK3Assignment Diabetes//diabetes.csv")
+df = pd.read_csv("..//WEEK3Assignment Diabetes//diabetes.csv")
 
 
 print("First few rows of the dataframe")
@@ -52,28 +52,40 @@ print(correlation_matrix)
 excel_file_path = "E://King's//Data//Prescriptive Analytics//WEEK3Assignment Diabetes//correlation.xlsx"
 correlation_matrix.to_excel(excel_file_path, index=True)
 
-#Distribution of Outcome
+
+#Bar Graph
 sns.countplot(x='Outcome', data=df)
-plt.title('Distribution of Diabetes Outcome')
+plt.title('Bargraph of Diabetes vs Non Diabetes')
 plt.xlabel('Outcome (0: No Diabetes, 1: Diabetes)')
 plt.ylabel('Count')
 plt.show()
 
-#Scatter plots
+#Histogram
 selected_vars = ['Glucose', 'Insulin', 'Pregnancies']
-sns.pairplot(df, hue='Outcome', vars=selected_vars, markers=["o", "s"])
-plt.suptitle('Pairplot of Glucose, Insulin, and Pregnancies by Diabetes Outcome', y=1.02)
+sns.set(style="ticks")
+pair_plot = sns.pairplot(df, hue='Outcome', vars=selected_vars, markers=["o", "s"], diag_kind='hist')
+labels = {'Glucose': 'Glucose Level', 'Insulin': 'Insulin Level', 'Pregnancies': 'Number of Pregnancies'}
+for i in range(len(selected_vars)):
+    for j in range(len(selected_vars)):
+        if i == len(selected_vars) - 1:
+            pair_plot.axes[i, j].set_xlabel(labels[selected_vars[j]])
+        if j == 0:
+            pair_plot.axes[i, j].set_ylabel(labels[selected_vars[i]])
+plt.suptitle('Histogram of Glucose, Insulin, and Pregnancies by Diabetes Outcome', y=1.02)
 plt.show()
 
-#Correlation matrix
-correlation_matrix = df.corr().round(2)
-sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
-plt.title('Correlation Matrix')
+#Heatmap
+sns.heatmap(correlation_matrix, annot=True, cmap='Oranges', linewidths=0.5)
+plt.title('Heatmap')
 plt.show()
 
-#Age vs. BMI
-sns.lineplot(x='Age', y='BMI', data=df)
-plt.title('Line Chart: Age vs. BMI')
-plt.xlabel('Age')
-plt.ylabel('BMI')
+# Density Plot
+plt.figure(figsize=(12, 8))
+sns.kdeplot(df['Glucose'], label='Glucose', fill=True)
+sns.kdeplot(df['BMI'], label='BMI', fill=True)
+sns.kdeplot(df['Age'], label='Age', fill=True)
+plt.title('Density Plot')
+plt.xlabel('Variables')
+plt.ylabel('Density')
+plt.legend()
 plt.show()
