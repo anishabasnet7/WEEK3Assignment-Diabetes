@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 df = pd.read_csv("..//WEEK3Assignment Diabetes//diabetes.csv")
-
-
 print("First few rows of the dataframe")
 print(df.head())
 print("Missing Values")
@@ -22,7 +20,7 @@ print(df_cleaned.head())
 print("Summary Statistics")
 summary_statistics = df.describe()
 print(summary_statistics)
-excel_file_path = "E://King's//Data//Prescriptive Analytics//WEEK3Assignment Diabetes//summary_statistics.xlsx"
+excel_file_path = "..//WEEK3Assignment Diabetes//summary_statistics.xlsx"
 summary_statistics.to_excel(excel_file_path, index=True)
 
 #Mean
@@ -49,9 +47,8 @@ print(std_devs)
 correlation_matrix = df.corr().round(4)
 print("\nCorrelation Matrix")
 print(correlation_matrix)
-excel_file_path = "E://King's//Data//Prescriptive Analytics//WEEK3Assignment Diabetes//correlation.xlsx"
+excel_file_path = "..//WEEK3Assignment Diabetes//correlation.xlsx"
 correlation_matrix.to_excel(excel_file_path, index=True)
-
 
 #Bar Graph
 sns.countplot(x='Outcome', data=df)
